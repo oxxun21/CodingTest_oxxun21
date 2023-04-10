@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TODO</title>
+
+  <!-- CSS -->
+  <style>
+    .a11y-hidden {
+      clip: rect(1px, 1px, 1px, 1px);
+      clip-path: inset(50%);
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+    }
+  </style>
+</head>
+
+<body>
+  <form id="todo-form">
+    <label for="user-input" class="a11y-hidden"></label>
+    <input id="user-input" type="text">
+
+    <button id="btn-add" type="submit">추가하기</button>
+    <button type="reset">reset</button>
+  </form>
+
+  <ul id="todo-list"></ul>
+
+  <!-- JavaScript -->
+  <script src="./script.js"></script>
+</body>
+
+</html>
