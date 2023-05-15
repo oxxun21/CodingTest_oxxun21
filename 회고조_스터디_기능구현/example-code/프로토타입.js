@@ -258,3 +258,195 @@ const Person = name => {
 
 // non-constructor는 프로토타입이 생성되지 않는다.
 console.log(Person.prototype);  // undefined
+
+// 19-29
+function Person(name){
+  this.name = name;
+}
+
+// 프로토타입 메서드
+Person.prototype.sayHello = function(){
+  console.log(`My name is ${this.name}`);
+}
+
+const me = new Person('Lee');
+
+// hasOwnProperty는 Object.prototype의 메서드이다.
+console.log(me.hasOwnProperty('name')); // true
+
+Object.getPrototypeOf(me) === Person.prototype;   // true
+Object.getPrototypeOf(Person.prototype) === Object.prototype;   // true
+
+// hasOwnProperty는 Object.prototype의 메서드다.
+// me 객체는 프로토타입 체인을 따라 hasOwnProperty 메서드를 검색하여 사용한다.
+me.hasOwnProperty('name');  // true
+
+Object.prototype.hasOwnProperty.call(me, 'name');
+
+me.hasOwnProperty('name');
+
+// 19-36
+const Person = (function(){
+  // 생성자 함수
+  function Person(name){
+    this.name = name;
+  }
+
+  // 프로토타입 메서드
+  Person.prototype.sayHello = function(){
+    console.log(`Hi, My name is ${this.name}`);
+  };
+
+  // 생성자 함수 반환
+  return Person;
+}());
+
+const me = new Person('Lee');
+
+// 인스턴스 메서드
+me.sayHello = function(){
+  console.log(`Hey, My name is ${this.name}`);
+};
+
+// 인스턴스 메서드가 호출, 프로토타입 메서드는 인스턴스 메서드에 의해 가려짐
+me.sayHello();  // Hey, My name is Lee
+
+// 19-37
+// 인스턴스 메서드를 삭제한다.
+delete me.sayHello;
+// 인스턴스에는 sayHello 메서드가 없으므로 프로토타입 메서드가 호출된다.
+me.sayHello();  // Hi, My name is Lee
+
+// 19-38
+// 프로토타입 체인을 통해 프로토타입 메서드가 삭제되지 않는다.
+delete me.sayHello;
+// 프로토타입 메서드가 호출된다.
+me.sayHello();  // Hi, My name is Lee
+
+// 19-39
+// 프로토타입 메서드 변경
+Person.prototype.sayHello = function(){
+  console.log(`Hey, My name is ${this.name}`);
+};
+me.sayHello();  // Hey, My name is Lee
+
+// 프로토타입 메서드 삭제
+delete Person.prototype.sayHello;
+me.sayHello();  // TypeError: me.sayHello is not a function
+
+// 19-40
+const Person = (function(){
+  function Person(name){
+    this.name = name;
+  }
+
+  // 1. 생성자 함수의 prototype 프로퍼티를 통해 프로토타입을 교체
+  Person.prototype = {
+    sayHello(){
+      console.log(`Hi, My name is ${this.name}`);
+    }
+  };
+  return Person;
+}());
+
+const me = new Person('Lee');
+
+// 프로토타입을 교체하면 constructor 프로퍼티와 생성자 함수 간의 연결이 파괴된다.
+console.log(me.constructor === Person); // false
+
+// 프로토타입 체인을 다라 Object.prototype의 constructor 프로퍼티가 검색된다.
+console.log(me.constructor === Object); // true
+
+// 19-42
+const Person = (function(){
+  function Person(name){
+    this.name = name;
+  }
+
+  // 생성자 함수의 prototype 프로퍼티를 통해 프로토타입을 교체
+  Person.prototype = {
+    // constructor 프로퍼티와 생성자 함수 간의 연결을 설정
+    constructor: Person,
+    sayHello(){
+      console.log(`Hi, My name is ${this.name}`);
+    }
+  };
+  return Person;
+}());
+
+const me = new Person('Lee');
+
+// constructor 프로퍼티가 생성자 함수를 가리킨다.
+console.log(me.constructor === Person); // true
+console.log(me.constructor === Object);  // false
+
+// 19-43
+function Person(name){
+  this.name = name;
+}
+
+const me = new Person('Lee');
+
+// 프로토타입으로 교체할 객체
+const parent = {
+  sayHello(){
+    console.log(`Hi, My name is ${this.name}`);
+  }
+};
+
+// 1. me 객체의 프로토타입을 parent 객체로 교체한다.
+Object.setPrototypeOf(me, parent);
+// 동일 코드 => me.__proto__ = parent;
+
+me.sayHello();  // Hi, My name is Lee
+
+// 프로토타입을 교체하면 constructor 프로퍼티와 생성자 함수 간의 연결이 파괴된다.
+console.log(me.constructor === Person); // false
+// 프로토타입 체인을 따라 Object.prototype의 constructor 프로퍼티가 검색된다.
+console.log(me.constructor === Object);  // true
+
+// 19-45
+function Person(name){
+  this.name = name;
+}
+
+const me = new Person('Lee');
+
+// 프로토타입으로 교체할 객체
+const parent = {
+  // constructor 프로퍼티와 생성자 함수 간의 연결을 설정
+  constructor: Person,
+  sayHello(){
+    console.log(`Hi, My name is ${this.name}`);
+  }
+};
+
+// 생성자 함수의 prototype 프로퍼티와 프로토타입 간의 연결을 설정
+Person.prototype = parent;
+
+// me 객체의 프로토타입을 parent 객체로 교체한다.
+Object.setPrototypeOf(me, parent);
+// => me.__proto__ = parent;
+
+me.sayHello();  // Hi, My name is Lee
+
+// constructor 프로퍼티가 생성자 함수를 가리킨다.
+console.log(me.constructor === Person); // true
+console.log(me.constructor === Object);  // false
+
+// 생성자 함수의 prototype 프로퍼티가 교체된 프로토타입을 가리킨다.
+console.log(Person.prototype === Object.getPrototypeOf(me));  // true
+
+// 19-46
+// 생성자 함수
+function Person(name){
+  this.name = name;
+}
+
+const me = new Person('Lee');
+
+// Person.prototype이 me 객체의 프로토타입 체인 상에 존재하므로 true로 평가된다.
+console.log(mew instanceof Person); // true
+
+// Object.prototype이 me 객체의 프로토타입 체인 상에 존재하므로 true로 평가된다.
+console.log(mew instanceof Object); // true
