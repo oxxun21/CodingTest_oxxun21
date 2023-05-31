@@ -1,7 +1,11 @@
 import React from 'react'
 
-export default function Category() {
+export default function Category({ category }) {
   return (
-    <div>Category</div>
+    <dl className="category">
+      <dt className="a11y-hidden">Category</dt>
+      <dd>Life</dd>
+      <dd>Style</dd>
+    </dl>
   )
 }
