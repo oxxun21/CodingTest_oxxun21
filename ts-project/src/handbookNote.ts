@@ -194,3 +194,112 @@ square.sideLenth = 10;
 square.penWidth = 5.0;
 
 ///////////////////////////////////////////////////////////
+// interface Interface {
+//   // 프로퍼티 선언
+//   propertyName: type;
+
+//   // 메서드 선언
+//   methodName(parameter: type): returnType;
+
+//   // 선택적 프로퍼티
+//   optionalProperty?: type;
+
+//   // 읽기 전용 프로퍼티
+//   readonly readonlyProperty: type;
+// }
+
+// interface FnInterface {
+//   (x: type, y: type): returnType;
+// }
+///////////////////////////////////////////////////////////
+
+let myAdd: (x: number, y: number) => number = function (x, y): number {
+  return x + y;
+};
+
+function buildName(firstName: string, ...restOfName: string[]) {
+  return `${firstName} ${restOfName.join(" ")}`;
+}
+
+let result1 = buildName("bob", "foo");
+let result2 = buildName("boo", "foo", "coo");
+
+let buildNameFn: (firstname: string, ...rest: string[]) => string = buildName;
+
+let deck = {
+  suits: ["hearts", "spades", "clubs", "diamonds"],
+  cards: Array(52),
+  createCardPicker: () => {
+    return function () {
+      let pickedCard = Math.floor(Math.random() * 52);
+      let pickedSuit = Math.floor(pickedCard / 13);
+
+      // return { suit: this.suits[pickedSuit], card: pickedCard % 13 };
+    };
+  },
+};
+
+let cardPicker = deck.createCardPicker();
+let pickedCard = cardPicker();
+
+/////////////////////////////////////////////////////////////////////
+type Easing = "ease-in" | "ease-out" | "ease-in-out";
+
+class UiElement {
+  animate(dx: number, dy: number, easing: Easing) {
+    if (easing === "ease-in") {
+    } else if (easing === "ease-out") {
+    } else if (easing === "ease-in-out") {
+    } else {
+      // 타입을 무시하면 여기로 도달
+    }
+  }
+}
+
+let button = new UiElement();
+button.animate(0, 0, "ease-in");
+// button.animate(0, 0, "uneasy");
+
+/////////////////////////////////////////////////////////////////////
+function printId(id: number | string) {
+  if (typeof id === "string") {
+    // string 타입
+    console.log(id.toUpperCase());
+  } else {
+    // number 타입
+    console.log(id);
+  }
+}
+
+printId(101);
+printId("101");
+// printId({id: "101"})
+
+function getFirstThree(x: number[] | string) {
+  return x.slice(0, 3);
+}
+
+interface ErrorHandling {
+  success: boolean;
+  error?: { message: string };
+}
+
+interface ArtworksData {
+  artworks: { title: string }[];
+}
+
+interface ArtistsData {
+  artists: { name: string }[];
+}
+
+type ArtworksResponse = ArtworksData & ErrorHandling;
+type ArtistsResponse = ArtistsData & ErrorHandling;
+
+const handleArtistsResponse = (response: ArtistsResponse) => {
+  if (response.error) {
+    console.error(response.error.message);
+    return;
+  }
+
+  console.log(response.artists);
+};
