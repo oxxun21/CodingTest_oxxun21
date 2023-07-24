@@ -87,7 +87,7 @@
     // "strictNullChecks": true,                         /* When type checking, take into account 'null' and 'undefined'. */
     // "strictFunctionTypes": true,                      /* When assigning functions, check to ensure parameters and the return values are subtype-compatible. */
     // "strictBindCallApply": true,                      /* Check that the arguments for 'bind', 'call', and 'apply' methods match the original function. */
-    // "strictPropertyInitialization": true,             /* Check for class properties that are declared but not set in the constructor. */
+    "strictPropertyInitialization": false /* class property가 constructor에서 값이 할당되었는지 확인하는 기능 활성화 여부 */,
     // "noImplicitThis": true,                           /* Enable error reporting when 'this' is given the type 'any'. */
     // "useUnknownInCatchVariables": true,               /* Default catch clause variables as 'unknown' instead of 'any'. */
     // "alwaysStrict": true,                             /* Ensure 'use strict' is always emitted. */

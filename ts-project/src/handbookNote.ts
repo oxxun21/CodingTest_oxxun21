@@ -303,3 +303,41 @@ const handleArtistsResponse = (response: ArtistsResponse) => {
 
   console.log(response.artists);
 };
+//////////////////////////////////////////////////////////////
+interface GenericIndentityFn<T> {
+  (arg: T): T;
+}
+
+function identity<T>(arg: T): T {
+  return arg;
+}
+
+let myIdentity: GenericIndentityFn<number> = identity;
+
+class GenericNumber<T> {
+  zeroValue: T;
+  add: (x: T, y: T) => T;
+}
+
+let myGenericNumber = new GenericNumber<number>();
+myGenericNumber.zeroValue = 0;
+myGenericNumber.add = function (x, y) {
+  return x + y;
+};
+
+let stringNumeric = new GenericNumber<string>();
+stringNumeric.zeroValue = "";
+stringNumeric.add = function (x, y) {
+  return x + y;
+};
+
+console.log(stringNumeric.add(stringNumeric.zeroValue, "test"));
+
+interface Lengthwise {
+  length: number;
+}
+
+function loggingIdentity<T extends Lengthwise>(arg: T): T {
+  console.log(arg.length);
+  return arg;
+}
