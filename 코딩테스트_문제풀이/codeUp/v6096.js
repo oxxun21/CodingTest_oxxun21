@@ -16,30 +16,46 @@ const q = `0 0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 0 0 0`;
+0 0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 0 0 0
+2
+10 10
+12 12`;
 
-// const qArr = q.split("\n").map((i) => i.split(" ").map(Number));
-// const coor = ["10 10", "12 12"];
+const qArr = q.split("\n").map((i) => i.split(" ").map(Number));
+const coor = ["10 10", "12 12"];
+const numCoor = coor.map((i) => i.split(" ").map(Number));
 
-// for (let i = 0; i < coor.length; i++) {
-//   const [x, y] = coor[i].split(" ").map(Number);
+for (let i = 0; i < 2; i++) {
+  let [x, y] = numCoor[i];
+  x -= 1;
+  y -= 1;
+  for (let j = 0; j < qArr.length; j++) {
+    if (qArr[j][y] === 0) {
+      qArr[j][y] = 1;
+    } else {
+      qArr[j][y] = 0;
+    }
 
-//   for (let j = 1; j < 20; j++) {
-//     if (qArr[j][y] === 0) {
-//       qArr[j][y] = 1;
-//     } else {
-//       qArr[j][y] = 0;
-//     }
+    if (qArr[x][j] === 0) {
+      qArr[x][j] = 1;
+    } else {
+      qArr[x][j] = 0;
+    }
+  }
+}
 
-//     if (qArr[x][j] === 0) {
-//       qArr[x][j] = 1;
-//     } else {
-//       qArr[x][j] = 0;
-//     }
+// for (let i = 0; i < 19; i++) {
+//   console.log(qArr[i].join(" "));
+// }
+// console.log(numCoor);
+
+// for (let i = 0; i < a.length - 1; i++) {
+//   if (a[i][n - 1] === n) {
+//     string = string + 0;
+//   } else {
+//     string = string + a[i][n - 1];
 //   }
 // }
-
-// console.log(qArr);
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -79,12 +95,12 @@ const q = `0 0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 0 0 0
 //   console.log(a[i][m]);
 // }
 
-let input = `1 2 3 4 5
-2 2 2 2 2
-3 3 3 3 3
-4 4 4 4 4
-5 5 5 5 5
-4`;
+// let input = `1 2 3 4 5
+// 2 2 2 2 2
+// 3 3 3 3 3
+// 4 4 4 4 4
+// 5 5 5 5 5
+// 4`;
 
 // 출력
 // n = 4;
@@ -95,16 +111,16 @@ let input = `1 2 3 4 5
 // 3 2 3 4 5 -> 0 2 0 4 5
 // n번째 열을 뽑고 뽑은 열에서 n과 같은 수는 0으로 만들기
 
-const a = input.split("\n").map((i) => i.split(" ").map(Number));
+// const a = input.split("\n").map((i) => i.split(" ").map(Number));
 
-let n = Number(a[5]);
+// let n = Number(a[5]);
 
-let string = "";
-for (let i = 0; i < a.length - 1; i++) {
-  if (a[i][n - 1] === n) {
-    string = string + 0;
-  } else {
-    string = string + a[i][n - 1];
-  }
-}
-console.log(string);
+// let string = "";
+// for (let i = 0; i < a.length - 1; i++) {
+//   if (a[i][n - 1] === n) {
+//     string = string + 0;
+//   } else {
+//     string = string + a[i][n - 1];
+//   }
+// }
+// console.log(string);
