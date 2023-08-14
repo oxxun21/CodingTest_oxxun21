@@ -22,14 +22,16 @@ const q = `0 0 0 0 0 0 0 0 0 1 0 1 0 0 0 0 0 0 0
 12 12`;
 
 const qArr = q.split("\n").map((i) => i.split(" ").map(Number));
-const coor = ["10 10", "12 12"];
-const numCoor = coor.map((i) => i.split(" ").map(Number));
+const coor = qArr.slice(-2);
+const num = qArr[19].map(Number);
 
-for (let i = 0; i < 2; i++) {
-  let [x, y] = numCoor[i];
+for (let i = 0; i < num; i++) {
+  let [x, y] = coor[i];
   x -= 1;
   y -= 1;
-  for (let j = 0; j < qArr.length; j++) {
+
+  // qArr.length - 3 : [2],[10, 10],[20, 20] 빼야함
+  for (let j = 0; j < qArr.length - 3; j++) {
     if (qArr[j][y] === 0) {
       qArr[j][y] = 1;
     } else {
@@ -43,6 +45,33 @@ for (let i = 0; i < 2; i++) {
     }
   }
 }
+
+for (let i = 0; i < 19; i++) {
+  console.log(qArr[i].join(" "));
+}
+
+// const qArr = q.split("\n").map((i) => i.split(" ").map(Number));
+// const coor = ["10 10", "12 12"];
+// const numCoor = coor.map((i) => i.split(" ").map(Number));
+
+// for (let i = 0; i < 2; i++) {
+//   let [x, y] = numCoor[i];
+//   x -= 1;
+//   y -= 1;
+//   for (let j = 0; j < qArr.length; j++) {
+//     if (qArr[j][y] === 0) {
+//       qArr[j][y] = 1;
+//     } else {
+//       qArr[j][y] = 0;
+//     }
+
+//     if (qArr[x][j] === 0) {
+//       qArr[x][j] = 1;
+//     } else {
+//       qArr[x][j] = 0;
+//     }
+//   }
+// }
 
 // for (let i = 0; i < 19; i++) {
 //   console.log(qArr[i].join(" "));
