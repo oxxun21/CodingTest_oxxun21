@@ -9,10 +9,9 @@ const input = `1 1 1 1 1 1 1 1 1 1
 1 0 0 0 0 0 0 0 0 1
 1 1 1 1 1 1 1 1 1 1`;
 
+const arr = input.split("\n").map((i) => i.split(" ").map(Number));
 let x = 1,
   y = 1;
-
-const arr = input.split("\n").map((i) => i.split(" ").map(Number));
 
 while (true) {
   if (arr[x][y] === 0) {
