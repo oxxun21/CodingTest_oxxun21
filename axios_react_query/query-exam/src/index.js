@@ -1,8 +1,18 @@
 import React from "react";
-// import ReactDOM from 'react-dom'; //구버전
-import { createRoot } from "react-dom/client";
+import ReactDOM from "react-dom";
 import App from "./App";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 
-const container = document.getElementById("root");
-const root = createRoot(container);
-root.render(<App />);
+const queryClient = new QueryClient();
+
+ReactDOM.render(
+  <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
+      {/* devtools */}
+      <ReactQueryDevtools initialIsOpen={true} />
+      <App />
+    </QueryClientProvider>
+  </React.StrictMode>,
+  document.getElementById("root")
+);
